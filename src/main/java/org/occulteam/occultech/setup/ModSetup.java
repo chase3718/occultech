@@ -1,7 +1,5 @@
 package org.occulteam.occultech.setup;
 
-import static org.occulteam.occultech.Occultech.MODID;
-
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ModSetup {
