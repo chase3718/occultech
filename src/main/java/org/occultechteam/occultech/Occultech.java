@@ -1,9 +1,13 @@
 package org.occultechteam.occultech;
 
-import org.slf4j.Logger;
+
 
 import com.mojang.logging.LogUtils;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.CreativeModeTab;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import org.slf4j.Logger;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -19,7 +23,7 @@ public class Occultech
 {
     public static final String MODID = "occultech";
     private static final Logger LOGGER = LogUtils.getLogger();
-    
+
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
