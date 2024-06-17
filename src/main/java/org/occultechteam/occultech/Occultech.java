@@ -7,7 +7,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.occultechteam.occultech.item.ModItems;
+import org.occultechteam.occultech.common.item.OccultechItems;
 import org.slf4j.Logger;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -30,7 +30,7 @@ public class Occultech
 
     public Occultech(IEventBus modEventBus, ModContainer modContainer)
     {
-        ModItems.ITEMS.register(modEventBus);
+        OccultechItems.ITEMS.register(modEventBus);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
