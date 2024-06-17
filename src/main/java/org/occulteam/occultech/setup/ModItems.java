@@ -5,6 +5,7 @@ import org.occulteam.occultech.common.item.Staff;
 import org.occulteam.occultech.common.lib.libItemNames;
 import org.occulteam.occultech.common.util.RegistryWrapper;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -24,5 +25,9 @@ public class ModItems {
 
     public static RegistryWrapper register(String name) {
         return register(name, () -> new ModItem());
+    }
+
+    public static void register(IEventBus eventBus) {
+        ITEMS.register(eventBus);
     }
 }

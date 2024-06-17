@@ -1,5 +1,5 @@
 package org.occulteam.occultech.api.spell;
 
-public class Spell {
+public class FireballSpell extends Spell {
     
 }
