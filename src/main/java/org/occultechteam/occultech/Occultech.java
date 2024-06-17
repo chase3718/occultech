@@ -7,6 +7,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.occultechteam.occultech.item.ModItems;
 import org.slf4j.Logger;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -25,12 +26,11 @@ public class Occultech
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public Occultech(IEventBus modEventBus, ModContainer modContainer)
     {
-
+        ModItems.ITEMS.register(modEventBus);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
