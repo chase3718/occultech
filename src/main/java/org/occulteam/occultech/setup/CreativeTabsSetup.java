@@ -16,7 +16,7 @@ public class CreativeTabsSetup {
 
     public static final RegistryObject<CreativeModeTab> OCCULTECH_TAB = CREATIVE_MODE_TABS.register("occultech",
             () -> CreativeModeTab.builder()
-                    .icon(() -> new ItemStack(ModItems.STAFF.get()))
+                    .icon(() -> new ItemStack(ModItems.EMERALD_STAFF.get()))
                     .title(Component.translatable("creativetab.occultech"))
                     .displayItems(CreativeTabsSetup::displayItems).build());
 
@@ -26,6 +26,6 @@ public class CreativeTabsSetup {
 
     public static void displayItems(CreativeModeTab.ItemDisplayParameters displayParameters,
             CreativeModeTab.Output output) {
-        output.accept(ModItems.STAFF.get());
+        output.accept(ModItems.EMERALD_STAFF.get());
     }
 }

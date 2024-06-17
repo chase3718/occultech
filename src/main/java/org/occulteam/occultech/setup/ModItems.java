@@ -16,7 +16,7 @@ import static org.occulteam.occultech.Occultech.MODID;
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-    public static RegistryWrapper<Staff> STAFF = register(libItemNames.STAFF, Staff::new);
+    public static RegistryWrapper<Staff> EMERALD_STAFF = register(libItemNames.EMERALD_STAFF, Staff::new);
 
     public static RegistryWrapper register(String name, Supplier<? extends Item> item) {
         return new RegistryWrapper<>(ITEMS.register(name, item));
