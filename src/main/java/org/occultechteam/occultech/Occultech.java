@@ -28,6 +28,8 @@ public class Occultech
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+
+
     public Occultech(IEventBus modEventBus, ModContainer modContainer)
     {
         OccultechItems.ITEMS.register(modEventBus);
