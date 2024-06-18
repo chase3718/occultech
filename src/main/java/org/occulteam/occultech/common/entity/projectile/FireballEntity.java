@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class FireballEntity extends Projectile {
-    public FireballEntity(EntityType<? extends ThrowableItemProjectile> pEntityType, Level pLevel) {
+    public FireballEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
