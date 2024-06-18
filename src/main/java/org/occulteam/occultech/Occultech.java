@@ -2,6 +2,7 @@ package org.occulteam.occultech;
 
 import org.occulteam.occultech.client.CreativeModTab;
 import org.occulteam.occultech.common.command.AddManaCommand;
+import org.occulteam.occultech.common.command.SetMaxManaCommand;
 import org.occulteam.occultech.common.command.ShowManaCommand;
 import org.occulteam.occultech.common.network.Networking;
 import org.occulteam.occultech.startup.ClientProxy;
@@ -46,6 +47,7 @@ public class Occultech {
     public static void RegisterCommands(RegisterCommandsEvent event) {
         ShowManaCommand.register(event.getDispatcher());
         AddManaCommand.register(event.getDispatcher());
+        SetMaxManaCommand.register(event.getDispatcher());
     }
 
 }

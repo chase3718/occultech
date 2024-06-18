@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 public class FireballWandItem extends Item {
 
     public FireballWandItem() {
-        super(new Item.Properties());
+        super(new Item.Properties().stacksTo(1));
     }
 
     @Override
