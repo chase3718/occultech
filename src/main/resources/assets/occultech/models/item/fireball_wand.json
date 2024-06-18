@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "occultech:item/emerald_staff"
+		"layer0": "occultech:item/fireball_wand"
 	}
 }
