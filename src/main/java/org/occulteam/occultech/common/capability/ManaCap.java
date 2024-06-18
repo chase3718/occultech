@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class ManaCap implements IManaCap {
     private final LivingEntity livingEntity;
-    private double mana;
+    private int mana;
     private int maxMana;
 
     public ManaCap(@Nullable final LivingEntity _livingEntity) {
@@ -17,7 +17,7 @@ public class ManaCap implements IManaCap {
     }
 
     @Override
-    public double getCurrentMana() {
+    public int getCurrentMana() {
         return mana;
     }
 
@@ -32,7 +32,7 @@ public class ManaCap implements IManaCap {
     }
 
     @Override
-    public double setMana(final double _mana) {
+    public int setMana(final int _mana) {
         if (_mana > getMaxMana()) {
             mana = getMaxMana();
         } else if (_mana < 0) {
@@ -45,12 +45,12 @@ public class ManaCap implements IManaCap {
     }
 
     @Override
-    public double addMana(final double addMana) {
+    public int addMana(final int addMana) {
         return setMana(getCurrentMana() + addMana);
     }
 
     @Override
-    public double consumeMana(final double _mana) {
+    public int consumeMana(final int _mana) {
         if (_mana < 0) {
             return getCurrentMana();
         }
@@ -61,14 +61,14 @@ public class ManaCap implements IManaCap {
     @Override
     public CompoundTag serializeNBT() {
         final CompoundTag tag = new CompoundTag();
-        tag.putDouble("current_mana", getCurrentMana());
+        tag.putInt("current_mana", getCurrentMana());
         tag.putInt("max_mana", getMaxMana());
         return tag;
     }
 
     @Override
     public void deserializeNBT(final CompoundTag tag) {
-        setMana(tag.getDouble("current_mana"));
+        setMana(tag.getInt("current_mana"));
         setMaxMana(tag.getInt("max_mana"));
     }
 }

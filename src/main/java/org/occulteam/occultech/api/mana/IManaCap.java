@@ -4,16 +4,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public interface IManaCap extends INBTSerializable<CompoundTag> {
-    double getCurrentMana();
+    int getCurrentMana();
 
     int getMaxMana();
 
     void setMaxMana(int maxMana);
 
-    double setMana(final double mana);
+    int setMana(final int mana);
 
-    double addMana(final double mana);
+    int addMana(final int mana);
 
-    double consumeMana(final double mana);
+    int consumeMana(final int mana);
 
 }
