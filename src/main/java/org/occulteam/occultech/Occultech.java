@@ -1,8 +1,5 @@
 package org.occulteam.occultech;
 
-import org.occulteam.occultech.setup.CreativeTabsSetup;
-import org.occulteam.occultech.setup.ModSetup;
-
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,10 +14,6 @@ public class Occultech {
 
     public Occultech() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        CreativeTabsSetup.register(modEventBus);
-
-        ModSetup.register(modEventBus);
-
         modEventBus.addListener(this::commonSetup);
     }
 
