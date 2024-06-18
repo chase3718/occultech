@@ -22,14 +22,12 @@ public class AddManaCommand {
                 })));
     }
 
-    public static int execute(CommandContext<CommandSourceStack> command, double amount) {
+    public static int execute(CommandContext<CommandSourceStack> command, int amount) {
         if (command.getSource().getEntity() instanceof Player) {
             Player player = (Player) command.getSource().getEntity();
             if (player != null) { // Add null check for player variable
-                player.getCapability(CapabilityRegistry.MANA_CAPABILITY).ifPresent(cap -> {
-
-                    cap.addMana(amount);
-                });
+                int curMaxMana = player.getCapability(CapabilityRegistry.MANA_CAPABILITY).resolve().get().getMaxMana();
+                player.getCapability(CapabilityRegistry.MANA_CAPABILITY).resolve().get().setMaxMana(curMaxMana + amount);
             }
         }
         return Command.SINGLE_SUCCESS;

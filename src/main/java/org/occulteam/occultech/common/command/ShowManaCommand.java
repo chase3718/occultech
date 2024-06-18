@@ -26,10 +26,10 @@ public class ShowManaCommand {
             Player player = (Player) command.getSource().getEntity();
             String text = "Mana: ";
 
-            if (player != null)
-                player.getCapability(CapabilityRegistry.MANA_CAPABILITY).ifPresent(cap -> {
-                    text.concat(String.valueOf(cap.getCurrentMana()));
-                });
+            if (player != null) {
+                String curMana = String.valueOf(player.getCapability(CapabilityRegistry.MANA_CAPABILITY).resolve().get().getMaxMana());
+                text = text.concat(curMana);
+            }
 
             PlayerChatMessage message = PlayerChatMessage.unsigned(player.getUUID(), text);
             player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(message), false,
