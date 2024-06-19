@@ -1,6 +1,7 @@
 package org.occulteam.occultech.common.command;
 
 import org.occulteam.occultech.common.capability.CapabilityRegistry;
+import org.occulteam.occultech.common.capability.PlayerCapHelper;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -12,7 +13,6 @@ import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.OutgoingChatMessage;
 import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.level.NoteBlockEvent.Play;
 
 public class ShowManaCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -27,7 +27,7 @@ public class ShowManaCommand {
             String text = "Mana: ";
 
             if (player != null) {
-                String curMana = String.valueOf(player.getCapability(CapabilityRegistry.MANA_CAPABILITY).resolve().get().getMaxMana());
+                String curMana = PlayerCapHelper.getCurrentMana(player) + "/" + PlayerCapHelper.getMaxMana(player);
                 text = text.concat(curMana);
             }
 

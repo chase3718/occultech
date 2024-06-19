@@ -27,6 +27,7 @@ public class CreativeModTab {
     private static void addDisplayItems(CreativeModeTab.ItemDisplayParameters displayParameters,
             CreativeModeTab.Output output) {
         output.accept(new ItemStack(ModItems.FIREBALL_WAND.get()));
+        output.accept(new ItemStack(ModItems.SNOWBALL_WAND.get()));
     }
 
     public static void register(IEventBus eventBus) {
