@@ -3,15 +3,14 @@ package org.occulteam.occultech.common.item;
 import javax.swing.text.html.parser.Entity;
 
 import org.jetbrains.annotations.NotNull;
+import org.occulteam.occultech.common.mana.ManaHelper;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -50,16 +49,13 @@ public class WandItem extends Item {
         }
 
         player.getCooldowns().addCooldown(this, COOLDOWN);
-        // display mana
-        // player.displayClientMessage(Component.translatable("curMana: " +
-        // PlayerCapHelper.getCurrentMana(player)),
-        // onCooldown);
 
-        // if (!PlayerCapHelper.hasEnoughMana(player, MANA_COST)) {
+        // if (ManaHelper.getPlayerMana(player) < MANA_COST) {
         // player.displayClientMessage(Component.translatable("n_e_mana"), true);
-        // return InteractionResultHolder.pass(stack);
+        // return InteractionResultHolder.fail(stack);
         // }
 
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, SoundSource.PLAYERS, 1.0F, 1.0F);
         player.awardStat(Stats.ITEM_USED.get(this));
         player.startUsingItem(hand);
         return InteractionResultHolder.consume(stack);

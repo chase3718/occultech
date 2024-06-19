@@ -4,10 +4,10 @@ import net.minecraft.nbt.CompoundTag;
 
 public class PlayerMana {
     private int mana;
-    private int MAX_MANA;
-    private int MIN_MANA;
-    private int MANA_REGEN;
-    private int REGEN_BOOST;
+    private int MAX_MANA = 10;
+    private int MIN_MANA = 0;
+    private int MANA_REGEN = 1;
+    private int REGEN_BOOST = 0;
 
     public int getMana() {
         return mana;
@@ -30,8 +30,14 @@ public class PlayerMana {
         return this.mana;
     }
 
-    public void consumeMana(int mana) {
+    public int consumeMana(int mana) {
         this.mana = Math.max(MIN_MANA, this.mana - mana);
+        return this.mana;
+    }
+
+    public int setMaxMana(int maxMana) {
+        this.MAX_MANA = maxMana;
+        return maxMana;
     }
 
     public void copyFrom(PlayerMana source) {
@@ -40,9 +46,17 @@ public class PlayerMana {
 
     public void saveNBTData(CompoundTag nbt) {
         nbt.putInt("mana", this.mana);
+        nbt.putInt("MAX_MANA", this.MAX_MANA);
+        nbt.putInt("MIN_MANA", this.MIN_MANA);
+        nbt.putInt("MANA_REGEN", this.MANA_REGEN);
+        nbt.putInt("REGEN_BOOST", this.REGEN_BOOST);
     }
 
     public void loadNBTData(CompoundTag nbt) {
         this.mana = nbt.getInt("mana");
+        this.MAX_MANA = nbt.getInt("MAX_MANA");
+        this.MIN_MANA = nbt.getInt("MIN_MANA");
+        this.MANA_REGEN = nbt.getInt("MANA_REGEN");
+        this.REGEN_BOOST = nbt.getInt("REGEN_BOOST");
     }
 }

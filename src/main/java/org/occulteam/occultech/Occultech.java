@@ -4,6 +4,7 @@ import org.occulteam.occultech.client.CreativeModTab;
 import org.occulteam.occultech.common.command.AddManaCommand;
 import org.occulteam.occultech.common.command.SetMaxManaCommand;
 import org.occulteam.occultech.common.command.ShowManaCommand;
+import org.occulteam.occultech.networking.ModMessages;
 import org.occulteam.occultech.startup.ClientProxy;
 import org.occulteam.occultech.startup.IProxy;
 import org.occulteam.occultech.startup.ModItems;
@@ -35,6 +36,9 @@ public class Occultech {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            ModMessages.register();
+        });
     }
 
     @SubscribeEvent

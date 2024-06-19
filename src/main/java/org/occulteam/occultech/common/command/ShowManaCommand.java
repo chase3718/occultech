@@ -1,5 +1,7 @@
 package org.occulteam.occultech.common.command;
 
+import org.occulteam.occultech.common.mana.ManaHelper;
+
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
@@ -24,9 +26,9 @@ public class ShowManaCommand {
             String text = "Mana: ";
 
             if (player != null) {
-                // String curMana = PlayerCapHelper.getCurrentMana(player) + "/" +
-                // PlayerCapHelper.getMaxMana(player);
-                // text = text.concat(curMana);
+                text += "Mana: ";
+                // text = text.concat(ManaHelper.getPlayerMana(player) + "/" +
+                // ManaHelper.getPlayerMaxMana(player));
             }
 
             PlayerChatMessage message = PlayerChatMessage.unsigned(player.getUUID(), text);

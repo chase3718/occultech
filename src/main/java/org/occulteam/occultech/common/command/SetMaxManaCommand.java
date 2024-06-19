@@ -1,5 +1,7 @@
 package org.occulteam.occultech.common.command;
 
+import org.occulteam.occultech.common.mana.ManaHelper;
+
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -20,8 +22,8 @@ public class SetMaxManaCommand {
     public static int execute(CommandContext<CommandSourceStack> command, int amount) {
         if (command.getSource().getEntity() instanceof Player) {
             Player player = (Player) command.getSource().getEntity();
-            if (player != null) { // Add null check for player variable
-                // PlayerCapHelper.setMaxMana(player, amount);
+            if (player != null) {
+                ManaHelper.setPlayerMaxMana(player, amount);
             }
         }
         return Command.SINGLE_SUCCESS;
