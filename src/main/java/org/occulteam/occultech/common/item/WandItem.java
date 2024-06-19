@@ -1,5 +1,6 @@
 package org.occulteam.occultech.common.item;
 
+import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -9,14 +10,15 @@ import net.minecraft.world.level.Level;
 
 public class WandItem extends Item {
     public int MANA_COST = 10;
-
-    public WandItem() {
-        super(new Item.Properties().stacksTo(1));
-    }
+    public Sound sound;
 
     public WandItem(int manaCost) {
         super(new Item.Properties().stacksTo(1));
         MANA_COST = manaCost;
+    }
+
+    public WandItem() {
+        super(new Item.Properties().stacksTo(1));
     }
 
     public WandItem(Properties properties) {
