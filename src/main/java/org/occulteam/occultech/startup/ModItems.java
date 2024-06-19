@@ -16,6 +16,7 @@ public class ModItems {
     public static final RegistryObject<WandItem> SNOWBALL_WAND = ITEMS.register("snowball_wand", SnowballWandItem::new);
     public static final RegistryObject<WandItem> SAND_WAND = ITEMS.register("sand_wand", SandWandItem::new);
     public static final RegistryObject<Item> BULLET = ITEMS.register("bullet", BulletItem::new);
+    public static final RegistryObject<Item> GUN = ITEMS.register("gun", GunItem::new);
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
