@@ -45,7 +45,6 @@ public class ModEvents {
             event.player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
                 if (mana.getMana() < mana.getMaxMana()) {
                     mana.regen();
-
                 }
             });
         }
