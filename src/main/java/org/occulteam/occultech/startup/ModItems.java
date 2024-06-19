@@ -1,10 +1,7 @@
 package org.occulteam.occultech.startup;
 
 import org.occulteam.occultech.Occultech;
-import org.occulteam.occultech.common.item.FireballWandItem;
-import org.occulteam.occultech.common.item.SandWandItem;
-import org.occulteam.occultech.common.item.SnowballWandItem;
-import org.occulteam.occultech.common.item.WandItem;
+import org.occulteam.occultech.common.item.*;
 
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,6 +15,7 @@ public class ModItems {
     public static final RegistryObject<WandItem> FIREBALL_WAND = ITEMS.register("fireball_wand", FireballWandItem::new);
     public static final RegistryObject<WandItem> SNOWBALL_WAND = ITEMS.register("snowball_wand", SnowballWandItem::new);
     public static final RegistryObject<WandItem> SAND_WAND = ITEMS.register("sand_wand", SandWandItem::new);
+    public static final RegistryObject<Item> BULLET = ITEMS.register("bullet", BulletItem::new);
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
