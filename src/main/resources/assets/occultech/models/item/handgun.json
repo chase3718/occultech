@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "occultech:item/gun"
+    "layer0": "occultech:item/handgun"
   }
 }
