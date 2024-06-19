@@ -5,6 +5,7 @@ import org.occulteam.occultech.common.item.WandItem;
 import org.occulteam.occultech.common.item.BulletItem;
 import org.occulteam.occultech.common.item.HandgunItem;
 
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -15,7 +16,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Occultech.MODID);
 
     public static final RegistryObject<Item> FIREBALL_WAND = ITEMS.register("fireball_wand",
-            () -> new WandItem(new Item.Properties(), 10, null, null, 10));
+            () -> new WandItem(new Item.Properties(), 10, SoundEvents.BLAZE_SHOOT, null, 10));
 
     public static final RegistryObject<Item> BULLET = ITEMS.register("bullet", BulletItem::new);
     public static final RegistryObject<Item> HANDGUN = ITEMS.register("handgun", HandgunItem::new);
