@@ -1,8 +1,5 @@
 package org.occulteam.occultech.common.command;
 
-import org.occulteam.occultech.common.capability.CapabilityRegistry;
-import org.occulteam.occultech.common.capability.PlayerCapHelper;
-
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -24,7 +21,7 @@ public class AddManaCommand {
         if (command.getSource().getEntity() instanceof Player) {
             Player player = (Player) command.getSource().getEntity();
             if (player != null) { // Add null check for player variable
-                PlayerCapHelper.addMana(player, amount);
+                // PlayerCapHelper.addMana(player, amount);
             }
         }
         return Command.SINGLE_SUCCESS;
