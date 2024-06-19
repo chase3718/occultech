@@ -14,7 +14,7 @@ public class HandgunItem extends GunItem {
 
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
-        if (pPlayer.getInventory().contains(BowItem)
+        //if (pPlayer.getInventory().contains(BowItem)
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 }
