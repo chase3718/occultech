@@ -21,9 +21,10 @@ public class HandgunItem extends GunItem {
     }
 
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
+        ItemStack gun = pPlayer.getItemInHand(pHand);
         if (!pLevel.isClientSide) {
-            if (getCurAmmo() != 0) {
-                fire(pLevel, pPlayer);
+            if (getCurAmmo(gun) != 0) {
+                fire(pLevel, pPlayer, pHand);
             } else
                 loadAmmo(pLevel, pPlayer, pHand);
         }

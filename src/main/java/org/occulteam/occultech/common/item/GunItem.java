@@ -1,5 +1,6 @@
 package org.occulteam.occultech.common.item;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.NotNull;
 import org.occulteam.occultech.startup.ModItems;
 
@@ -21,20 +23,20 @@ public abstract class GunItem extends ProjectileWeaponItem {
     public static final Predicate<ItemStack> BULLET_ONLY = (bul) -> bul.is(ModItems.BULLET.get());
 
     private int maxAmmo;
-    private int curAmmo;
     private float shootingPower;
 
     public GunItem(Item.Properties pProperties, int pMaxAmmo, float pShootingPower) {
-        super(pProperties);
+        super(pProperties.stacksTo(1));
         maxAmmo = pMaxAmmo;
         shootingPower = pShootingPower;
-        curAmmo = 0;
     }
 
-    public void fire(Level pLevel, Player pPlayer) {
+    public void fire(Level pLevel, Player pPlayer, InteractionHand pHand) {
+        ItemStack gunInHand = pPlayer.getItemInHand(pHand);
+        CompoundTag gunNBT = gunInHand.serializeNBT();
+        gunNBT.putInt("curAmmo", gunNBT.getInt("curAmmo") - 1);
         pLevel.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
-        curAmmo--;
-        pPlayer.sendSystemMessage(Component.literal(String.valueOf(curAmmo)));
+        pPlayer.sendSystemMessage(Component.literal(String.valueOf(gunNBT.getInt("curAmmo"))));
         SmallFireball smallFireball = new SmallFireball(pLevel, pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0);
     }
 
@@ -46,12 +48,12 @@ public abstract class GunItem extends ProjectileWeaponItem {
         return BULLET_ONLY;
     }
 
-    public void setCurAmmo(int ammo) {
-        curAmmo = Math.min(ammo, maxAmmo);
+    public void setCurAmmo(ItemStack gun, int ammo) {
+        gun.serializeNBT().putInt("curAmmo", ammo);
     }
 
-    public int getCurAmmo() {
-        return curAmmo;
+    public int getCurAmmo(ItemStack gun) {
+        return gun.serializeNBT().getInt("curAmmo");
     }
 
     public void setMaxAmmo(int ammo) {
@@ -62,8 +64,9 @@ public abstract class GunItem extends ProjectileWeaponItem {
         return maxAmmo;
     }
 
-    public void consumeAmmo() {
-        curAmmo = Math.max(0, curAmmo-1);
+    public void consumeAmmo(ItemStack gun) {
+        CompoundTag gunNBT = gun.serializeNBT();
+        gunNBT.putInt("curAmmo", gunNBT.getInt("curAmmo") - 1);
     }
 
     public float getShootingPower() {
@@ -72,6 +75,11 @@ public abstract class GunItem extends ProjectileWeaponItem {
 
     public boolean loadAmmo (Level pLevel, Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (itemstack.serializeNBT().get("curAmmo") == null) {
+            CompoundTag nbtData = new CompoundTag();
+            nbtData.putInt("curAmmo", 0);
+            itemstack.setTag(nbtData);
+        }
         if (!pPlayer.getProjectile(itemstack).isEmpty()) {
             Predicate<ItemStack> predicate = ((ProjectileWeaponItem)itemstack.getItem()).getAllSupportedProjectiles();
             ItemStack ammoItemStack = null;
@@ -88,7 +96,8 @@ public abstract class GunItem extends ProjectileWeaponItem {
             } else {
                 int reloadct = (int) Math.min(maxAmmo, ammoItemStack.getCount());
                 ammoItemStack.split(reloadct);
-                curAmmo = reloadct;
+                setCurAmmo(itemstack, reloadct);
+                pPlayer.sendSystemMessage(Component.literal(String.valueOf(itemstack.serializeNBT().get("curAmmo"))));
                 pLevel.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.CROSSBOW_LOADING_END, SoundSource.PLAYERS, 1.0F, 1.0F);
                 return true;
             }
