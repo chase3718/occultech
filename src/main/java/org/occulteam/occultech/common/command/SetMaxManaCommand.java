@@ -1,5 +1,8 @@
 package org.occulteam.occultech.common.command;
 
+import org.occulteam.occultech.common.capability.mana.CapRegistry;
+import org.occulteam.occultech.common.capability.mana.IMana;
+
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -25,7 +28,10 @@ public class SetMaxManaCommand {
         if (command.getSource().getEntity() instanceof Player) {
             Player player = (Player) command.getSource().getEntity();
             if (player != null) {
-
+                IMana mana = CapRegistry.getMana(player).orElse(null);
+                mana.setMaxMana(amount);
+                Component manaMsg = Component.literal("Set max mana to " + amount);
+                player.displayClientMessage(manaMsg, false);
             }
         }
         return Command.SINGLE_SUCCESS;

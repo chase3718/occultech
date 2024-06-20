@@ -3,6 +3,7 @@ package org.occulteam.occultech.networking.packet;
 import java.util.function.Supplier;
 
 import org.occulteam.occultech.Occultech;
+import org.occulteam.occultech.client.ClientData;
 import org.occulteam.occultech.common.capability.mana.CapRegistry;
 import org.occulteam.occultech.common.capability.mana.IMana;
 import org.occulteam.occultech.common.capability.mana.ManaCap;
@@ -34,7 +35,7 @@ public class PacketSyncPlayerCap {
         ctx.get().enqueueWork(() -> {
             Player playerEntity = Occultech.proxy.getPlayer();
             IMana cap = CapRegistry.getMana(playerEntity).orElse(new ManaCap(playerEntity));
-
+            ClientData.setData(cap);
             if (cap != null) {
                 cap.deserializeNBT(tag);
             }

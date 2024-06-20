@@ -1,7 +1,9 @@
 package org.occulteam.occultech;
 
 import org.occulteam.occultech.client.CreativeModTab;
+import org.occulteam.occultech.client.gui.GuiManaBar;
 import org.occulteam.occultech.common.command.AddManaCommand;
+import org.occulteam.occultech.common.command.SetManaRegenCommand;
 import org.occulteam.occultech.common.command.SetMaxManaCommand;
 import org.occulteam.occultech.common.command.ShowManaCommand;
 import org.occulteam.occultech.networking.ModMessages;
@@ -10,6 +12,7 @@ import org.occulteam.occultech.startup.IProxy;
 import org.occulteam.occultech.startup.ModItems;
 import org.occulteam.occultech.startup.ServerProxy;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,12 +30,11 @@ public class Occultech {
 
     public Occultech() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(this::clientSetup);
 
         CreativeModTab.register(modEventBus);
-
         ModItems.register(modEventBus);
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::clientSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -53,6 +55,7 @@ public class Occultech {
         ShowManaCommand.register(event.getDispatcher());
         AddManaCommand.register(event.getDispatcher());
         SetMaxManaCommand.register(event.getDispatcher());
+        SetManaRegenCommand.register(event.getDispatcher());
     }
 
 }

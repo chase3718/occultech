@@ -4,6 +4,7 @@ import javax.swing.text.html.parser.Entity;
 
 import org.jetbrains.annotations.NotNull;
 import org.occulteam.occultech.common.capability.mana.CapRegistry;
+import org.occulteam.occultech.common.capability.mana.IMana;
 
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
@@ -44,6 +45,10 @@ public class WandItem extends Item {
     @NotNull
     @Override
     public InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
+        if (level.isClientSide) {
+            return InteractionResultHolder.pass(player.getItemInHand(hand));
+        }
+
         ItemStack stack = player.getItemInHand(hand);
         boolean onCooldown = player.getCooldowns().isOnCooldown(this);
 
@@ -52,9 +57,22 @@ public class WandItem extends Item {
         }
 
         player.getCooldowns().addCooldown(this, COOLDOWN);
-        CapRegistry.getMana(player).ifPresent(mana -> {
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, SoundSource.PLAYERS, 1.0F, 1.0F);
-        });
+        IMana mana = CapRegistry.getMana(player).orElse(null);
+
+        if (mana == null) {
+            return InteractionResultHolder.fail(stack);
+        }
+
+        if (mana.getMana() < MANA_COST) {
+            Component manaMsg = Component.literal("Not enough mana!");
+            player.displayClientMessage(manaMsg, false);
+            return InteractionResultHolder.fail(stack);
+        }
+
+        mana.removeMana(MANA_COST);
+
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, SoundSource.PLAYERS, 1.0F, 1.0F);
+
         player.awardStat(Stats.ITEM_USED.get(this));
         player.startUsingItem(hand);
         return InteractionResultHolder.consume(stack);

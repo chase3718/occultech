@@ -15,8 +15,10 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
 public class CapRegistry {
@@ -98,6 +100,19 @@ public class CapRegistry {
             CompoundTag nbt = mana.serializeNBT();
             if (player instanceof ServerPlayer serverPlayer) {
                 ModMessages.sendToClient(new PacketSyncPlayerCap(nbt), serverPlayer);
+            }
+        }
+
+        @SubscribeEvent
+        public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+            if (event.side == LogicalSide.SERVER) {
+                IMana mana = CapRegistry.getMana(event.player).orElse(null);
+                if (mana != null) {
+                    if (mana.getMana() < mana.getMaxMana()) {
+                        mana.regen();
+                        syncPlayerCap(event.player);
+                    }
+                }
             }
         }
     }

@@ -10,15 +10,12 @@ import com.mojang.brigadier.context.CommandContext;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.OutgoingChatMessage;
-import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.world.entity.player.Player;
 
-public class AddManaCommand {
+public class SetManaRegenCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("addmana")
+        dispatcher.register(Commands.literal("setmanaregen")
                 .then(Commands.argument("amount", IntegerArgumentType.integer(1, 1000)).executes(command -> {
                     return execute(command, IntegerArgumentType.getInteger(command, "amount"));
                 })));
@@ -29,8 +26,8 @@ public class AddManaCommand {
             Player player = (Player) command.getSource().getEntity();
             if (player != null) {
                 IMana mana = CapRegistry.getMana(player).orElse(null);
-                mana.addMana(amount);
-                Component manaMsg = Component.literal("Added " + amount + " mana. Current mana: " + mana.getMana());
+                mana.setManaRegen(amount);
+                Component manaMsg = Component.literal("Set mana regen to " + amount);
                 player.displayClientMessage(manaMsg, false);
             }
         }

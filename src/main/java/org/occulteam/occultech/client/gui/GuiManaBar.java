@@ -1,42 +1,48 @@
 package org.occulteam.occultech.client.gui;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.checkerframework.checker.units.qual.min;
 import org.occulteam.occultech.common.capability.mana.CapRegistry;
 import org.occulteam.occultech.common.capability.mana.IMana;
-import org.occulteam.occultech.startup.Config;
-
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
+@OnlyIn(Dist.CLIENT)
 public class GuiManaBar {
-        // public static final IGuiOverlay OVERLAY = GuiManaBar::renderOverlay;
 
         private static final Minecraft minecraft = Minecraft.getInstance();
+        private static final ForgeGui gui = (ForgeGui) minecraft.gui;
 
-        public static final IGuiOverlay OVERLAY = ((gui, poseStack, partialTick, width, height) -> {
-                int x = width / 2;
-                int y = height;
+        public static void DrawManaBar(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth,
+                        int screenHeight) {
+                int x = screenWidth / 2;
+                int y = screenHeight;
 
                 IMana mana = CapRegistry.getMana(minecraft.player).orElse(null);
 
                 if (mana == null) {
+                        guiGraphics.drawString(minecraft.font, Component.literal("BAD"), 100, 40, 0xFF0000FF);
+
                         return;
                 }
 
                 int curMana = mana.getMana();
                 int maxMana = mana.getMaxMana();
-                int percentage = (int) ((float) curMana / (float) maxMana * 100);
+                int percentage = (int) ((curMana / (float) maxMana) * 100);
 
-                int barWidth = percentage * 2;
-                int barHeight = 10;
+                Component manaText = Component.literal("Mana: " + curMana + "/" + maxMana);
+                Component time = Component.literal("Time: " + minecraft.level.getGameTime());
 
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                guiGraphics.drawString(minecraft.font, manaText, 20, 20, 0xFFFFFFFF);
+                guiGraphics.drawString(minecraft.font, time, 20, 40, 0xFFFFFFFF);
+                // guiGraphics.fill(10, 10, 10 + (percentage * 2), 20, 0xFFFFFFFF);
+        }
 
-        });
 }

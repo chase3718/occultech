@@ -19,4 +19,10 @@ public interface IMana extends INBTSerializable<CompoundTag> {
     void setMaxMana(int maxMana);
 
     void addMaxMana(int maxMana);
+
+    void regen();
+
+    void setManaRegen(int manaRegen);
+
+    int getManaRegen();
 }

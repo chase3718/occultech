@@ -9,10 +9,12 @@ public class ManaCap implements IMana {
 
     private static final String NBT_KEY_MANA = "current_mana";
     private static final String NBT_KEY_MAX_MANA = "max_mana";
+    private static final String NBT_KEY_MANA_REGEN = "mana_regen";
 
     private final LivingEntity entity;
     private int mana;
     private int maxMana;
+    private int manaRegen;
 
     public ManaCap(@Nullable LivingEntity entity) {
         this.entity = entity;
@@ -20,12 +22,12 @@ public class ManaCap implements IMana {
 
     @Override
     public int getMana() {
-        return this.mana;
+        return mana;
     }
 
     @Override
     public int getMaxMana() {
-        return this.maxMana;
+        return maxMana;
     }
 
     @Override
@@ -81,10 +83,28 @@ public class ManaCap implements IMana {
     }
 
     @Override
+    public void regen() {
+        if (this.mana < this.maxMana) {
+            this.addMana(this.manaRegen);
+        }
+    }
+
+    @Override
+    public void setManaRegen(int manaRegen) {
+        this.manaRegen = manaRegen;
+    }
+
+    @Override
+    public int getManaRegen() {
+        return this.manaRegen;
+    }
+
+    @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
         nbt.putInt(NBT_KEY_MANA, this.mana);
         nbt.putInt(NBT_KEY_MAX_MANA, this.maxMana);
+        nbt.putInt(NBT_KEY_MANA_REGEN, this.manaRegen);
         return nbt;
     }
 
@@ -92,6 +112,7 @@ public class ManaCap implements IMana {
     public void deserializeNBT(CompoundTag nbt) {
         this.mana = nbt.getInt(NBT_KEY_MANA);
         this.maxMana = nbt.getInt(NBT_KEY_MAX_MANA);
+        this.manaRegen = nbt.getInt(NBT_KEY_MANA_REGEN);
     }
 
 }
