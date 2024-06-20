@@ -1,7 +1,5 @@
 package org.occulteam.occultech.common.command;
 
-import org.occulteam.occultech.common.mana.ManaHelper;
-
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -9,6 +7,10 @@ import com.mojang.brigadier.context.CommandContext;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.OutgoingChatMessage;
+import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.world.entity.player.Player;
 
 public class SetMaxManaCommand {
@@ -23,7 +25,7 @@ public class SetMaxManaCommand {
         if (command.getSource().getEntity() instanceof Player) {
             Player player = (Player) command.getSource().getEntity();
             if (player != null) {
-                ManaHelper.setPlayerMaxMana(player, amount);
+
             }
         }
         return Command.SINGLE_SUCCESS;

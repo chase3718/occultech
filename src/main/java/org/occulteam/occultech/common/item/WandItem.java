@@ -3,9 +3,12 @@ package org.occulteam.occultech.common.item;
 import javax.swing.text.html.parser.Entity;
 
 import org.jetbrains.annotations.NotNull;
-import org.occulteam.occultech.common.mana.ManaHelper;
+import org.occulteam.occultech.common.capability.mana.CapRegistry;
 
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.OutgoingChatMessage;
+import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -49,13 +52,9 @@ public class WandItem extends Item {
         }
 
         player.getCooldowns().addCooldown(this, COOLDOWN);
-
-        // if (ManaHelper.getPlayerMana(player) < MANA_COST) {
-        // player.displayClientMessage(Component.translatable("n_e_mana"), true);
-        // return InteractionResultHolder.fail(stack);
-        // }
-
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, SoundSource.PLAYERS, 1.0F, 1.0F);
+        CapRegistry.getMana(player).ifPresent(mana -> {
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, SoundSource.PLAYERS, 1.0F, 1.0F);
+        });
         player.awardStat(Stats.ITEM_USED.get(this));
         player.startUsingItem(hand);
         return InteractionResultHolder.consume(stack);

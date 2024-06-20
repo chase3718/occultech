@@ -2,6 +2,7 @@ package org.occulteam.occultech.networking;
 
 import org.occulteam.occultech.Occultech;
 import org.occulteam.occultech.networking.packet.ManaDataSyncS2CPacket;
+import org.occulteam.occultech.networking.packet.PacketSyncPlayerCap;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,17 +21,15 @@ public class ModMessages {
     }
 
     public static void register() {
-        SimpleChannel net = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Occultech.MODID, "messages"))
+        INSTANCE = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Occultech.MODID, "messages"))
                 .networkProtocolVersion(() -> "1.0").clientAcceptedVersions(s -> true).serverAcceptedVersions(s -> true)
                 .simpleChannel();
 
-        INSTANCE = net;
-
-        net.messageBuilder(ManaDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ManaDataSyncS2CPacket::new)
-                .encoder(ManaDataSyncS2CPacket::toBytes)
-                .consumerMainThread(ManaDataSyncS2CPacket::handle)
-                .add();
+        INSTANCE.registerMessage(id(),
+                PacketSyncPlayerCap.class,
+                PacketSyncPlayerCap::toBytes,
+                PacketSyncPlayerCap::new,
+                PacketSyncPlayerCap::handle);
 
     }
 
