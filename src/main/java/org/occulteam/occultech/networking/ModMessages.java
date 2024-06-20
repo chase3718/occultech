@@ -1,12 +1,10 @@
 package org.occulteam.occultech.networking;
 
 import org.occulteam.occultech.Occultech;
-import org.occulteam.occultech.networking.packet.ManaDataSyncS2CPacket;
 import org.occulteam.occultech.networking.packet.PacketSyncPlayerCap;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;

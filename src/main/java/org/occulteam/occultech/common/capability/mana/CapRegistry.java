@@ -2,10 +2,7 @@ package org.occulteam.occultech.common.capability.mana;
 
 import org.occulteam.occultech.Occultech;
 import org.occulteam.occultech.networking.ModMessages;
-import org.occulteam.occultech.networking.packet.ManaDataSyncS2CPacket;
 import org.occulteam.occultech.networking.packet.PacketSyncPlayerCap;
-
-import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;

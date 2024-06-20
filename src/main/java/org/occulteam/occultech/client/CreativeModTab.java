@@ -29,8 +29,6 @@ public class CreativeModTab {
         output.accept(new ItemStack(ModItems.FIREBALL_WAND.get()));
         output.accept(new ItemStack(ModItems.BULLET.get()));
         output.accept(new ItemStack(ModItems.HANDGUN.get()));
-        // output.accept(new ItemStack(ModItems.SNOWBALL_WAND.get()));
-        // output.accept(new ItemStack(ModItems.SAND_WAND.get()));
 
     }
 

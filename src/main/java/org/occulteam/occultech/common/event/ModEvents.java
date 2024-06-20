@@ -2,7 +2,6 @@ package org.occulteam.occultech.common.event;
 
 import org.occulteam.occultech.Occultech;
 import org.occulteam.occultech.networking.ModMessages;
-import org.occulteam.occultech.networking.packet.ManaDataSyncS2CPacket;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
