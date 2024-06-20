@@ -31,14 +31,17 @@ public class Occultech {
         CreativeModTab.register(modEventBus);
 
         ModItems.register(modEventBus);
-
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ModMessages.register();
         });
+    }
+
+    private void clientSetup(final FMLCommonSetupEvent event) {
     }
 
     @SubscribeEvent
