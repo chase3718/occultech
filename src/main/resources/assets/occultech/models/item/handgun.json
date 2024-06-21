@@ -1,6 +1,14 @@
 {
   "parent": "item/generated",
+  "overrides": [
+    {
+      "model": "occultech:item/handgun/handgun_loaded",
+      "predicate": {
+        "occultech:loaded": 1.0
+      }
+    }
+  ],
   "textures": {
-    "layer0": "occultech:item/handgun"
+    "layer0": "occultech:item/handgun/handgun_empty"
   }
 }

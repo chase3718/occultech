@@ -26,17 +26,18 @@ public abstract class GunItem extends ProjectileWeaponItem {
     private float shootingPower;
 
     public GunItem(Item.Properties pProperties, int pMaxAmmo, float pShootingPower) {
-        super(pProperties.stacksTo(1));
+        super(pProperties.stacksTo(1).defaultDurability(pMaxAmmo));
         maxAmmo = pMaxAmmo;
         shootingPower = pShootingPower;
+
     }
+
 
     public void fire(Level pLevel, Player pPlayer, InteractionHand pHand) {
         ItemStack gunInHand = pPlayer.getItemInHand(pHand);
-        CompoundTag gunNBT = gunInHand.serializeNBT();
-        gunNBT.putInt("curAmmo", gunNBT.getInt("curAmmo") - 1);
+        int gCurAmmo = gunInHand.getOrCreateTag().getInt("occultech:curAmmo");
+        setCurAmmo(gunInHand, gCurAmmo - 1);
         pLevel.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
-        pPlayer.sendSystemMessage(Component.literal(String.valueOf(gunNBT.getInt("curAmmo"))));
         SmallFireball smallFireball = new SmallFireball(pLevel, pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0);
     }
 
@@ -49,11 +50,18 @@ public abstract class GunItem extends ProjectileWeaponItem {
     }
 
     public void setCurAmmo(ItemStack gun, int ammo) {
-        gun.serializeNBT().putInt("curAmmo", ammo);
+        gun.getOrCreateTag().putInt("occultech:curAmmo", ammo);
+        if (ammo == 0) {
+            gun.setDamageValue(0);
+            gun.getOrCreateTag().putBoolean("occultech:loaded", false);
+        } else {
+            gun.setDamageValue(maxAmmo - ammo);
+            gun.getOrCreateTag().putBoolean("occultech:loaded", true);
+        }
     }
 
     public int getCurAmmo(ItemStack gun) {
-        return gun.serializeNBT().getInt("curAmmo");
+        return gun.getOrCreateTag().getInt("occultech:curAmmo");
     }
 
     public void setMaxAmmo(int ammo) {
@@ -64,22 +72,12 @@ public abstract class GunItem extends ProjectileWeaponItem {
         return maxAmmo;
     }
 
-    public void consumeAmmo(ItemStack gun) {
-        CompoundTag gunNBT = gun.serializeNBT();
-        gunNBT.putInt("curAmmo", gunNBT.getInt("curAmmo") - 1);
-    }
-
     public float getShootingPower() {
         return shootingPower;
     }
 
     public boolean loadAmmo (Level pLevel, Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (itemstack.serializeNBT().get("curAmmo") == null) {
-            CompoundTag nbtData = new CompoundTag();
-            nbtData.putInt("curAmmo", 0);
-            itemstack.setTag(nbtData);
-        }
         if (!pPlayer.getProjectile(itemstack).isEmpty()) {
             Predicate<ItemStack> predicate = ((ProjectileWeaponItem)itemstack.getItem()).getAllSupportedProjectiles();
             ItemStack ammoItemStack = null;
@@ -97,7 +95,6 @@ public abstract class GunItem extends ProjectileWeaponItem {
                 int reloadct = (int) Math.min(maxAmmo, ammoItemStack.getCount());
                 ammoItemStack.split(reloadct);
                 setCurAmmo(itemstack, reloadct);
-                pPlayer.sendSystemMessage(Component.literal(String.valueOf(itemstack.serializeNBT().get("curAmmo"))));
                 pLevel.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.CROSSBOW_LOADING_END, SoundSource.PLAYERS, 1.0F, 1.0F);
                 return true;
             }
