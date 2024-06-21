@@ -2,9 +2,9 @@
   "parent": "item/generated",
   "overrides": [
     {
-      "model": "occultech:item/handgun/handgun_loaded",
+      "model": "occultech:item/handgun_loaded",
       "predicate": {
-        "occultech:loaded": 1.0
+        "custom_model_data": 1.0
       }
     }
   ],

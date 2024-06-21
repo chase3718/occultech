@@ -53,10 +53,10 @@ public abstract class GunItem extends ProjectileWeaponItem {
         gun.getOrCreateTag().putInt("occultech:curAmmo", ammo);
         if (ammo == 0) {
             gun.setDamageValue(0);
-            gun.getOrCreateTag().putBoolean("occultech:loaded", false);
+            gun.getOrCreateTag().putBoolean("CustomModelData", false);
         } else {
             gun.setDamageValue(maxAmmo - ammo);
-            gun.getOrCreateTag().putBoolean("occultech:loaded", true);
+            gun.getOrCreateTag().putBoolean("CustomModelData", true);
         }
     }
 
