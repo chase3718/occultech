@@ -1,5 +1,7 @@
 {
 	"item.occultech.fireball_wand": "Fireball Wand",
+	"item.occultech.bullet": "Bullet",
+	"item.occultech.revolver": "Revolver",
 	"creativetab.occultech": "Occultech",
 	"n_e_mana": "Not enough mana!"
 }

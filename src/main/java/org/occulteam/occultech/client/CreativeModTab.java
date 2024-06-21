@@ -28,7 +28,7 @@ public class CreativeModTab {
             CreativeModeTab.Output output) {
         output.accept(new ItemStack(ModItems.FIREBALL_WAND.get()));
         output.accept(new ItemStack(ModItems.BULLET.get()));
-        output.accept(new ItemStack(ModItems.HANDGUN.get()));
+        output.accept(new ItemStack(ModItems.REVOLVER.get()));
 
     }
 

@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.NotNull;
 import org.occulteam.occultech.startup.ModItems;
@@ -38,7 +39,13 @@ public abstract class GunItem extends ProjectileWeaponItem {
         int gCurAmmo = gunInHand.getOrCreateTag().getInt("occultech:curAmmo");
         setCurAmmo(gunInHand, gCurAmmo - 1);
         pLevel.playSound((Player) null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
-        SmallFireball smallFireball = new SmallFireball(pLevel, pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0);
+        double rawX = 0-Math.sin(pPlayer.getYRot()*Math.PI/180);
+        double rawY = 0-Math.tan(pPlayer.getXRot()*Math.PI/180);
+        double rawZ = Math.cos(pPlayer.getYRot()*Math.PI/180);
+        double facingMag = Math.sqrt(rawX*rawX + rawY*rawY + rawZ*rawZ);
+        SmallFireball smallFireball = new SmallFireball(pLevel, pPlayer, rawX/facingMag, rawY/facingMag, rawZ/facingMag);
+        smallFireball.setPos(pPlayer.getX(), pPlayer.getY()+1, pPlayer.getZ());
+        pLevel.addFreshEntity(smallFireball);
     }
 
     public Predicate<ItemStack> getAllSupportedProjectiles() {

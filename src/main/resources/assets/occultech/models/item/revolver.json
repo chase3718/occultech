@@ -2,13 +2,13 @@
   "parent": "item/generated",
   "overrides": [
     {
-      "model": "occultech:item/handgun_loaded",
+      "model": "occultech:item/revolver_loaded",
       "predicate": {
         "custom_model_data": 1.0
       }
     }
   ],
   "textures": {
-    "layer0": "occultech:item/handgun/handgun_empty"
+    "layer0": "occultech:item/revolver/revolver_empty"
   }
 }
