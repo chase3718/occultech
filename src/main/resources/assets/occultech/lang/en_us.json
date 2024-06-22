@@ -3,5 +3,7 @@
 	"item.occultech.bullet": "Bullet",
 	"item.occultech.revolver": "Revolver",
 	"creativetab.occultech": "Occultech",
-	"n_e_mana": "Not enough mana!"
+	"n_e_mana": "Not enough mana!",
+	"key.category.occultech.guns": "Guns",
+	"key.occultech.reload_gun": "Reload Gun"
 }
